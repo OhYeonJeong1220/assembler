@@ -3,7 +3,7 @@
 int instr_trans(char *op, char *args, char* mcode)
 {//op:mov , args: next string, mcode: Opcode
     char seps[]=",";//delimit
-    char *token;
+    char *token,*token1,*token2;
 
     // check syntax
     //is_vaild() is in check.c 
@@ -14,19 +14,26 @@ int instr_trans(char *op, char *args, char* mcode)
 
     strcpy(mcode, "AB CD EF");
     
-    token = strtok(args, seps);
-    while(token != NULL){
-	if(strcmp(token,"%eax")==0){
-	//reg(eax) to mem
-	    strcpy(mcode,"a3");
-	    break;
+    token=strtok(args, seps);
+    token1=token;//save first token
+    token=strtok(NULL, seps);
+    token2=token;//save second token
+    
+    if(strcmp(token1,"%eax")==0){
+    //reg(eax) to mem
+	strcpy(mcode,"a3");
+    }
+    else if(strcmp(token2,"%eax")==0){
+    //mem to reg(eax)
+	strcpy(mcode,"a1");
+    }
+    else{
+	else if(strchr(token1,"$")!=NULL){
+	//immediate to reg
+	    strcpy(mcode,"b8");
 	}
-	else{
-	   //immediate to reg
-	    if(strchr(token,'$')!=NULL){
-		strcpy(mcode,"b8");
-		break;
-	    }	
+	else if(strchr(token1,"%")!=NULL){
+	
 	}
     }
     return 1;	
