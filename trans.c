@@ -3,8 +3,12 @@
 int instr_trans(char *op, char *args, char* mcode)
 {//op:mov , args: next string, mcode: Opcode
     char seps[]=",";//delimit
-    char *token,*token1,*token2;
-
+    char *token1,*token2;
+    char *m;
+    m=(char *)malloc(sizeof(char)*50);
+    strcpy(m,args);
+    token1=(char *)malloc(sizeof(char)*50);
+    token2=(char *)malloc(sizeof(char)*50);
     // check syntax
     //is_vaild() is in check.c 
     if(!is_valid(op, args)){
@@ -12,18 +16,14 @@ int instr_trans(char *op, char *args, char* mcode)
     	return 0;
     }
 
-    //strcpy(mcode, "AB CD EF");
-    
-    token=strtok(args, seps);
-    token1=token;//save first token
-    token=strtok(NULL, seps);
-    token2=token;//save second token
-    
-    if(strcmp(token1,"%eax")==0){
+    //strcpy(mcode, "AB CD EF")
+    strcpy(token1,strtok(m, seps));
+    strcpy(token2,strtok(NULL, seps));    
+    if(strcmp(token1,"%eax")==0&& strchr(token2,'x')!=NULL){
     //reg(eax) to mem
 	strcpy(mcode,"a3");
     }
-    else if(strcmp(token2,"%eax")==0){
+    else if((strchr(token1,'$')==NULL)&&(strchr(token1,')')==NULL)&&(strchr(token1,'x')!=NULL)&&(strcmp(token2,"%eax")==0)){
     //mem to reg(eax)
 	strcpy(mcode,"a1");
     }
