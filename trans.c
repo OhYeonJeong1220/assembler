@@ -28,12 +28,46 @@ int instr_trans(char *op, char *args, char* mcode)
 	strcpy(mcode,"a1");
     }
     else{
-	else if(strchr(token1,"$")!=NULL){
+	if(strchr(token1,"$")!=NULL){
 	//immediate to reg
+	    if(strcmp(token2,"%eax")==0){
 	    strcpy(mcode,"b8");
+	    }
+	    else if(strcmp(token2,"%ecx")==0){
+	    strcpy(mcode,"b9");
+	    }
+	    else if(strcmp(token2,"%edx")==0){
+	    strcpy(mcode,"ba");
+	    }
+	    else if(strcmp(token2,"%ebx")==0){
+	    strcpy(mcode,"bb");
+	    }
+	    else if(strcmp(token2,"%esp")==0){
+	    strcpy(mcode,"bc");
+	    }
+	    else if(strcmp(token2,"%ebp")==0){
+	    strcpy(mcode,"bd");
+	    }
+	    else if(strcmp(token2,"%esi")==0){
+	    strcpy(mcode,"be");
+	    }
+	    else if(strcmp(token2,"%edi")==0){
+	    strcpy(mode,"bf");
+	    }
 	}
 	else if(strchr(token1,"%")!=NULL){
-	
+	    //mem to reg(disp) 
+	    if(strchr(token1,"(")!=NULL){
+		strcpy(mcode,"8b");
+	    }
+	    //reg to reg
+	    else{
+		strcpy(mcode,"89");
+	    }
+	}
+	else{
+	//no case
+	    printf("This sytax is not match to mov-format\n");
 	}
     }
     return 1;	
