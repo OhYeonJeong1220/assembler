@@ -2,12 +2,13 @@
 
 int is_valid(char *op, char *args)
 {
-    char seps[]=",";//delimit
+   // char seps[]=",";//delimit
     char *token,*token1,*token2;
     //make token
-    token=strtok(args,seps);
+
+    token=strtok(args,",");
     token1=token;
-    token=strtok(NULL,seps);
+    token=strtok(NULL,",");
     token2=token;
 
     //case1 : first String is not mov
@@ -16,26 +17,26 @@ int is_valid(char *op, char *args)
 	    return 0;
     }
     //No register
-    if((strchr(token1,"%")==NULL)&&(strchr(token2,"%")==NULL)){
+    else if((strchr(token1,'%')==NULL)&&(strchr(token2,'%')==NULL)){
 	//mem to mem
-	if(strchr(strchr(token1,"(")!=NULL)&&(strchr(token2,"(")!=NULL)){
+	if((strchr(token1,'(')!=NULL)&&(strchr(token2,'(')!=NULL)){
 	printf("Error: mem to mem\n");
 	return 0;
 	}
-	else if((strchr(token1,"(")!=NULL)&&(strchr(token2,"x")!=NULL)){
+	else if((strchr(token1,'(')!=NULL)&&(strchr(token2,'x')!=NULL)){
 	printf("Error: mem to mem\n");
 	return 0;
 	}
-	else if((strchr(token1,"x")!=NULL)&&(strchr(token2,"(")!=NULL)){
-	print("Error: mem to mem\n");
+	else if((strchr(token1,'x')!=NULL)&&(strchr(token2,'(')!=NULL)){
+	printf("Error: mem to mem\n");
 	return 0;
 	}
-	else if((strchr(token1,"x")!=NULL)&&(strchr(token2,"x")!=NULL)){
+	else if((strchr(token1,'x')!=NULL)&&(strchr(token2,'x')!=NULL)){
 	printf("Error: mem to mem\n");
 	return 0;
 	}
 	//somethihg to immediate
-	if(strchr(token2,"$")!=NULL){
+	if(strchr(token2,'$')!=NULL){
 	printf("Error: Destination is immediate\n");
 	return 0;
 	}

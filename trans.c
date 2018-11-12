@@ -12,7 +12,7 @@ int instr_trans(char *op, char *args, char* mcode)
     	return 0;
     }
 
-    strcpy(mcode, "AB CD EF");
+    //strcpy(mcode, "AB CD EF");
     
     token=strtok(args, seps);
     token1=token;//save first token
@@ -28,7 +28,7 @@ int instr_trans(char *op, char *args, char* mcode)
 	strcpy(mcode,"a1");
     }
     else{
-	if(strchr(token1,"$")!=NULL){
+	if(strchr(token1,'$')!=NULL){
 	//immediate to reg
 	    if(strcmp(token2,"%eax")==0){
 	    strcpy(mcode,"b8");
@@ -52,12 +52,12 @@ int instr_trans(char *op, char *args, char* mcode)
 	    strcpy(mcode,"be");
 	    }
 	    else if(strcmp(token2,"%edi")==0){
-	    strcpy(mode,"bf");
+	    strcpy(mcode,"bf");
 	    }
 	}
-	else if(strchr(token1,"%")!=NULL){
+	else if(strchr(token1,'%')!=NULL){
 	    //mem to reg(disp) 
-	    if(strchr(token1,"(")!=NULL){
+	    if(strchr(token1,'(')!=NULL){
 		strcpy(mcode,"8b");
 	    }
 	    //reg to reg
