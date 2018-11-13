@@ -1,6 +1,7 @@
 mov 0x8049f10,%eax
 mov (%esp),%ebx
 mov %eax,0x8049f10
+mov %eax,(%ebx)
 mov %esp,%ebx
 mov -0x4(%ebx),%eax
 mov $0x0,%eax

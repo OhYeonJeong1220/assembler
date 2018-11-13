@@ -19,10 +19,9 @@ int instr_trans(char *op, char *args, char* mcode)
     }
 
 
-    //strcpy(mcode, "AB CD EF");
     strcpy(token1,strtok(m,seps));
     strcpy(token2,strtok(NULL,seps));
-    if(strcmp(token1,"%eax")==0 && strchr(token2,'x')!=NULL){
+    if(strcmp(token1,"%eax")==0 && (strchr(token2,'x')!=NULL || strchr(token2,'(')!=NULL)){
     //reg(eax) to mem
 	strcpy(mcode,"a3");
     }   
