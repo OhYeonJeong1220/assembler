@@ -6,6 +6,7 @@ int instr_trans(char *op, char *args, char* mcode)
     char *token1,*token2;
     char *m;
 
+
     m=(char *)malloc(sizeof(char)*50);
     strcpy(m,args);
     token1=(char *)malloc(sizeof(char)*50);
@@ -17,14 +18,15 @@ int instr_trans(char *op, char *args, char* mcode)
     	return 0;
     }
 
+
     //strcpy(mcode, "AB CD EF");
     strcpy(token1,strtok(m,seps));
     strcpy(token2,strtok(NULL,seps));
     if(strcmp(token1,"%eax")==0 && strchr(token2,'x')!=NULL){
     //reg(eax) to mem
 	strcpy(mcode,"a3");
-    }
-    else if((strchr(token1,'$')==NULL) && (strchr(token1,')')==NULL) &&(strcmp(token2,"%eax")==0)){
+    }   
+    else if((strchr(token1,'$')==NULL)&&(strchr(token1,')')==NULL)&&(strchr(token1,'x')!=NULL)&&(strcmp(token2,"%eax")==0)){
     //mem to reg(eax)
 	strcpy(mcode,"a1");
     }
